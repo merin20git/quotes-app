@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import QuoteNavbar from './QuoteNavbar'
+import axios from 'axios'
 
 const ViewAllQuote = () => {
 
     const[quoteData,changeQuote]=useState(
-        {"quotes":[],"total":1454,"skip":0,"limit":30}
+        {"quotes":[],"total":0,"skip":0,"limit":0}
     )
     const fetchDatafromAPI=()=>{
-        axios.get().then().catch()
+        axios.get("https://dummyjson.com/quotes").then(
+            (response)=>{
+                changeQuote(response.data)
+            }
+        ).catch()
     }
+    useEffect(()=>{fetchDatafromAPI()},[])
   return (
     <div>
         <QuoteNavbar/>
